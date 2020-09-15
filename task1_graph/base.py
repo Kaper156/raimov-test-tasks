@@ -23,14 +23,13 @@ def add_leafs(tree, data):
 
 
 def look_inner(tree, depth=0, name='root'):
-    # В проверке на None теперь нет необходимости,
-    # предполагается что (под)дерево имеет значения по ключу data,
-    # а в остальных ключах хранятся поддеревья
-    print("\t" * depth + f"{name}:{tree['data']}")
-    # for name, inner_tree in [(name, inner_tree) for name, inner_tree in tree.items() if name != 'data']:
-    for name, inner_tree in tree.items():
-        if name != 'data':
-            look_inner(inner_tree, depth=depth + 1, name=name)
+    print("\t" * depth + f"{name}:")
+    depth += 1
+    for name, inner in tree.items():
+        if type(inner) is dict:
+            look_inner(inner, depth=depth, name=name)
+        else:
+            print("\t" * depth + f"[DATA]{name}:{inner}")
 
 
 def main():
